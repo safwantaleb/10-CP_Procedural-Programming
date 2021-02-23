@@ -1,0 +1,69 @@
+
+        // fonction produit scalaire:
+FUNCTION dot_product (VAR v1 , v2 : ARRAY_OF FLOAT ) : FLOAT
+VAR
+    i : INTEGER;
+    ps : FLOAT;
+BEGIN
+    ps := 0 ;
+
+    IF (v1.length <> v2.length) THEN
+        Write ("The sizes of v1 and v2 are not matched ==> We can't calculate the scalar product ")
+    END_IF
+
+    FOR i FROM 0 TO v1.length -1 DO
+        ps := ps + v1[i]*v2[i]
+    END_FOR
+    RETURN ps ;
+END
+
+        // fonction "read size" du vecteur :
+FUNCTION read_size() : INTEGER
+VAR
+    n : INTEGER;
+BEGIN
+    REPEAT
+        Read (n);
+    UNTIL (n > 0 AND n <= 20)
+    RETURN n ;
+END
+
+        // procedure de remplissage d'un vecteur:
+PROCEDURE read_vect (n : INTEGER , VAR V : ARRAY_OF FLOAT)
+VAR
+    i : INTEGER;
+BEGIN
+    FOR i FROM 0 TO n-1 DO
+        Read V[i];
+    END_FOR
+END
+
+
+ALGORITHM vect_orth
+VAR
+    v1 : ARRAY_OF FLOAT [20];
+    v2 : ARRAY_OF FLOAT [20];
+    n1 , n2 : INTEGER
+    ps : FLOAT;
+BEGIN
+        // Read size of vector 1:
+    n1 := read_size();
+        // Read elements of vector 1:
+    read_vect (n1 , v1);
+
+        // Read size of vector 2:
+    n2 := read_size();
+        // Read elements of vector 2:
+    read_vect (n2 , v2);
+
+        // calcul du produit scalaire et verification de l'orthogonalité du v1 et v2:
+    ps := dot_product(v1, v2);
+
+    IF (ps = 0) THEN
+        Write ( "v1 et v2 sont orthogonaux");
+    ELSE
+        Write ( "v1 et v2 ne sont pas orthogonaux");
+    END_IF
+
+
+END
